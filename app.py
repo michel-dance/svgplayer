@@ -19,10 +19,14 @@ def websocket():
 @socketio.on('connect')
 def handle_connect():
     def send_svg():
+        colors = ['red', 'green', 'blue', 'yellow']
+        color_index = 0
         while True:
-            svg_payload = '<svg width="100" height="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="red" /></svg>'
+            svg_payload = f'<svg width="100" height="100"><circle cx="50" cy="50" r="40" stroke="black" stroke-width="3" fill="{colors[color_index]}" /></svg>'
             socketio.emit('svg', svg_payload)
             socketio.sleep(5)
+            color_index = (color_index + 1) % len(colors)
+    
     
     socketio.start_background_task(send_svg)
 
