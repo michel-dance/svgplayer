@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask App with WebSocket</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <h1>Hello, Flask!</h1>
+    <div id="svg-container"></div>
+    <script>
+        var socket = io();
+
+        socket.on('svg', function(data) {
+            document.getElementById('svg-container').innerHTML = data;
+        });
+    </script>
+</body>
+</html>
