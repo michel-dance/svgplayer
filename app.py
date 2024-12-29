@@ -82,5 +82,26 @@ def send_svg_video(client_id):
 def video_player():
     return render_template('video_player.html')    
 
+from flask import jsonify  # Add this import at the top if not already present
+import random  # Ensure the random module is imported
+
+@app.route('/graph_data')
+def graph_data():
+    """
+    Returns JSON data for a line graph with 100 data points.
+    Each data point is a random float between 0 and 5.
+    
+    Returns:
+        JSON: {
+            "labels": [1, 2, ..., 100],
+            "values": [random_value1, random_value2, ..., random_value100]
+        }
+    """
+    data = {
+        'labels': list(range(1, 101)),
+        'values': [round(random.uniform(0, 5), 2) for _ in range(100)]
+    }
+    return jsonify(data)
+
 if __name__ == '__main__':
     socketio.run(app, debug=True)
