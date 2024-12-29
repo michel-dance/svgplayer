@@ -30,5 +30,26 @@ def handle_connect():
     
     socketio.start_background_task(send_svg)
 
+
+@socketio.on('play_svg_video', namespace='/video')
+def handle_play_svg_video():
+    print('handle_play_svg_video')
+    def send_svg_video():
+        print('send_svg_video')
+        total_seconds = 100
+        svg_width = 500
+        radius = 40
+        for second in range(total_seconds):
+            # Calculate the x position based on the current second
+            x_position = (svg_width - radius * 2) * second / total_seconds + radius
+            svg_payload = f'<svg width="{svg_width}" height="100">' \
+                          f'<circle cx="{x_position}" cy="50" r="{radius}" stroke="black" stroke-width="3" fill="blue" />' \
+                          f'</svg>'
+            socketio.emit('svg_frame', svg_payload, namespace='/video')
+            socketio.sleep(1)
+    
+    socketio.start_background_task(send_svg_video)
+
+
 if __name__ == '__main__':
     socketio.run(app, debug=True)
