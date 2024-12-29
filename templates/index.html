@@ -39,11 +39,6 @@
     <script>
         const socket = io('/video');
 
-        document.getElementById('startPauseButton').addEventListener('click', function () {
-            console.log('play svg video')
-            socket.emit('play_svg_video');
-        });
-
         socket.on('svg_frame', function (data) {
             document.getElementById('svgVideo').innerHTML = data;
         });
@@ -54,9 +49,14 @@
             if (this.textContent === 'Start') {
                 this.textContent = 'Pause';
                 // Start the SVG video logic here
+
+                socket.emit('play_svg_video');
+
             } else {
                 this.textContent = 'Start';
                 // Pause the SVG video logic here
+
+                socket.emit('pause_svg_video');
             }
         });
 
