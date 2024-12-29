@@ -78,5 +78,9 @@ def send_svg_video(client_id):
         second += 1
     
 
+@app.route('/video_player')
+def video_player():
+    return render_template('video_player.html')    
+
 if __name__ == '__main__':
     socketio.run(app, debug=True)

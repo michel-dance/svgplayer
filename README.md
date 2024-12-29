@@ -13,3 +13,8 @@ $ pip install -r requirements.txt
 ````
 $ python app.py
 ````
+
+## convert png to mp4
+````
+$ ffmpeg -framerate 1 -i png_frames/circle_%d.png -c:v libx264 -r 30 -pix_fmt yuv420p output.mp4
+````
